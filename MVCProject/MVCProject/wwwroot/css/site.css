@@ -1,0 +1,131 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+a.navbalk{
+   color:white;
+   text-decoration:none;
+   margin-left: 2rem;
+}
+a.navbalk:hover {
+    color:black
+}
+.nav-item{
+    text-align:center;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+ul.nav {
+    height: 100vh;
+}
+.main {
+    padding-left: 16.5rem;
+}
+.navbar {
+    position: fixed;
+    width: 15.5rem;
+    background-color: #5999E3;
+}
+nav img {
+    max-width:3rem;
+
+}
+
+button.navmenu{
+    background-color: #FFFFFF;
+    border:none;
+    padding:5px;
+    margin-left:10px;
+    margin-bottom:5px;
+    margin-top:5px;
+    width: 200px;
+    border-radius:8px
+    
+}
+.logoBus{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logoBus img {
+    width: 25vw;
+}
+/*accountcontroller*/
+/*accountindex*/
+.gebruiker__item {
+    display: flex;
+    align-items: center;
+    height: auto;
+    background-color: #f6f7f9;
+    padding: 1rem;
+    border-radius: .5em
+}
+.gebruiker__item > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    width: 9rem
+}
+.account__btn {
+    margin: 0.125rem;
+}
+/*listitem van login partial onderaan plaatsen*/
+.bottom-item {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    list-style: none;
+    padding: 0;
+}
+
+/*Dashboard*/
+.dashboardBtn{
+    display: flex;
+    justify-content:center;
+}
+
+
+
+*{
+    font-family: Poppins;
+}
+
+.btn-primary, .primaryC {
+    background-color: #5999E3;
+    border-color: #5999E3;
+}
+
+.btn-secondary, .CTA {
+    color: black;
+    background-color: #E3B159;
+    border-color: #E3B159;
+}
+
+.btn-refuse, CTA2 {
+    color: aliceblue;
+    background-color: #B41C1C;
+    border-color: #B41C1C;
+}
+a.dashboard {
+    color: black;
+    text-decoration:none;
+}
+

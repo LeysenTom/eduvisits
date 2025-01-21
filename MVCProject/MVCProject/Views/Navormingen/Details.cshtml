@@ -1,0 +1,99 @@
+﻿@model MVCProject.Models.Navorming
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="display-5 mt-4">Details</h1>
+
+@if (User.IsInRole("Beheerder") || User.IsInRole("Coördinator") || User.IsInRole("Directie"))
+{
+    <a asp-action="Index" class="btn btn-primary mb-1">Terug naar navorminglijst</a>
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartUur)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartUur)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EindUur)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EindUur)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Reden)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Reden)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Kostprijs)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Kostprijs)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsGoedGekeurdDir)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsGoedGekeurdDir)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAfgewezen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsAfgewezen)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OpmerkingAfgewezen)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OpmerkingAfgewezen)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAfgewerkt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsAfgewerkt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Aanvrager)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Aanvrager.VolledigeNaam)
+        </dd>
+    </dl>
+</div>
+<div>
+    
+    @if (!Model.IsGoedGekeurdDir.HasValue && User.IsInRole("Directie"))
+    {
+        <form asp-action="Goedkeuren" asp-route-id="@Model?.Id" method="post">
+            <button type="submit" class="btn btn-secondary mt-2">Goedkeuren</button>
+        </form>
+        <form asp-action="Afkeuren" asp-route-id="@Model?.Id" method="post">
+                <div class="form-group">
+                    <label for="afkeurReden">Reden voor afkeuren:</label>
+                    <input type="text" id="afkeurReden" name="afkeurReden" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-refuse mt-2">Afkeuren</button>
+        </form>
+    }
+    
+    @if (User.IsInRole("Beheerder") || User.IsInRole("Directie") || User.IsInRole("Coördinator")){
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary mt-2">Wijzigen</a>
+    }
+    
+</div>

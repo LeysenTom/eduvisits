@@ -1,0 +1,117 @@
+﻿@using MVCProject.ViewModels.HomeViewModels
+
+@model DashboardViewModel
+
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<section>
+    <div>
+        <h1 class="display-5 mt-4">Dashboard</h1>
+    </div>
+    @*knoppen*@
+    <div class="row">
+        <div class="col-3 dashboardBtn">
+            <a asp-controller="Studiebezoeken" asp-action="Create" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>Studiebezoek
+            </a>
+        </div>
+        <div class="col-3 dashboardBtn">
+            <a asp-controller="Navormingen" asp-action="Create" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>Navorming
+            </a>
+        </div>
+        <div class="col-3 dashboardBtn">
+            <a class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                </svg>Fotoalbum
+            </a>
+        </div>
+        @if(User.IsInRole("Beheerder") || User.IsInRole("Secretariaat")){
+            <div class="col-3 dashboardBtn">
+                <a asp-controller="Afwezigheid" asp-action="Create" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                    </svg>Afwezigheid
+                </a>
+            </div>
+        }
+    </div>
+    @*te beslissen aanvragen*@
+    <div>
+        @if(Model.GoedTeKeurenNavormingen.Count != 0 || Model.GoedTeKeurenStudiebezoeken.Count != 0){
+            <h3 class="mt-1 mb-1">Te beslissen</h3>
+                <div class="row">
+                    <div class="col-2">Datum</div>
+                    <div class="col-2">Titel</div>
+                    <div class="col-2">Type</div>
+                    <div class="col-2">Aanvrager</div>
+                    <div class="col-2">Acties</div>
+                </div>
+                <hr />
+                @foreach (Studiebezoek sb in Model.GoedTeKeurenStudiebezoeken)
+                {
+                    <div class="row">
+                        <div class="col-2">@sb.Datum.ToShortDateString()</div>
+                        <div class="col-2">@sb.Reden</div>
+                        <div class="col-2">Studiebezoek</div>
+                        <div class="col-2">@sb.Aanvrager.VolledigeNaam</div>
+                        <div class="col-2"><a asp-controller="Studiebezoeken" asp-action="Details" asp-route-id="@sb.Id" class="btn btn-primary m-1">Details</a></div>
+                    </div>
+                }
+                @foreach (Navorming nv in Model.GoedTeKeurenNavormingen)
+                {
+                    <div class="row">
+                        <div class="col-2">@nv.Datum.ToShortDateString()</div>
+                        <div class="col-2">@nv.Reden</div>
+                        <div class="col-2">Navorming</div>
+                        <div class="col-2">@nv.Aanvrager.VolledigeNaam</div>
+                        <div class="col-2"><a asp-controller="Navormingen" asp-action="Details" asp-route-id="@nv.Id" class="btn btn-primary m-1">Details</a></div>
+                    </div>
+                }
+            
+        }
+    </div>
+    @*mijn aanvragen*@
+    <div>
+        @if(Model.Studiebezoeken.Count != 0 || Model.Navormingen.Count != 0){
+            <h3 class="mt-4">Mijn aanvragen</h3>
+                <div class="row">
+                    <div class="col-2">Datum</div>
+                    <div class="col-2">Titel</div>
+                    <div class="col-2">Type</div>
+                    <div class="col-2">Status</div>
+                    <div class="col-2">Acties</div>
+                </div>
+                <hr />
+                @foreach (Studiebezoek sb in Model.Studiebezoeken)
+                {
+                    <div class="row">
+                        <div class="col-2">@sb.Datum.ToShortDateString()</div>
+                        <div class="col-2">@sb.Reden</div>
+                        <div class="col-2">Studiebezoek</div>
+                        <div class="col-2">@sb.Status</div>
+                        <div class="col-2"><a asp-controller="Studiebezoeken" asp-action="Details" asp-route-id="@sb.Id" class="btn btn-primary m-1">Details</a></div>
+                    </div>
+                }
+                @foreach (Navorming nv in Model.Navormingen)
+                {
+                    <div class="row">
+                        <div class="col-2">@nv.Datum.ToShortDateString()</div>
+                        <div class="col-2">@nv.Reden</div>
+                        <div class="col-2">Navorming</div>
+                        <div class="col-2">@nv.Status</div>
+                        <div class="col-2"><a asp-controller="Navormingen" asp-action="Details" asp-route-id="@nv.Id" class="btn btn-primary m-1">Details</a></div>
+                    </div>
+                }
+        }
+    </div>
+</section>
+

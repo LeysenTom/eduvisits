@@ -1,0 +1,47 @@
+﻿@using MVCProject.Viewmodels.AccountViewModels
+
+@model AccountEditViewModel
+
+@{
+    ViewData["Title"] = "Wijzig " + Model.Voornaam + " " + Model.Naam;
+}
+<h1 class="display-5 mt-4">@ViewData["Title"]</h1>
+<a asp-action="Index" class="btn btn-primary mb-3">Terug naar accountlijst</a>
+<div class="row">
+    <div class="col">
+        <form asp-controller="Account" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id"/>
+            <div class="mb-3">
+                <label asp-for="Voornaam">Voornaam*</label>
+                <input asp-for="Voornaam" type="text" placeholder="Voornaam"/>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Naam">Naam*</label>
+                <input asp-for="Naam" type="text" placeholder="Naam" />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Gebruikersnaam">Gebruikersnaam*</label>
+                <input asp-for="Gebruikersnaam" type="text" placeholder="Gebruikersnaam" />
+            </div>
+            <h4>Rollen</h4>
+            <div class="form-check">
+                <input asp-for="Leerkracht" type="checkbox" class="form-check-input" />
+                <label asp-for="Leerkracht" class="form-check-label">Leerkracht</label>
+            </div>
+            <div class="form-check">
+                <input asp-for="SecretariaatsMedewerker" type="checkbox" class="form-check-input" />
+                <label asp-for="SecretariaatsMedewerker" class="form-check-label">Secretariaatsmedewerker</label>
+            </div>
+            <div class="form-check">
+                <input asp-for="Coordinator" type="checkbox" class="form-check-input" />
+                <label asp-for="Coordinator" class="form-check-label">Coordinator</label>
+            </div>
+            <div class="form-check">
+                <input asp-for="Directie" type="checkbox" class="form-check-input" />
+                <label asp-for="Directie" class="form-check-label">Directie</label>
+            </div>
+            <input type="submit" class="btn btn-secondary" value="Opslaan" />
+        </form>
+    </div>
+</div>

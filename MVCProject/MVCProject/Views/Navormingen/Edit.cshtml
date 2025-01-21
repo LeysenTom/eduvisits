@@ -1,0 +1,101 @@
+﻿@model MVCProject.ViewModels.NavormingEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="display-5 mt-4">Wijzig navorming</h1>
+
+<a asp-action="Index" class="btn btn-primary mb-3">Terug naar navorminglijst</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="AanvragerId" class="control-label"></label>
+                <select asp-for="AanvragerId" class="form-control" asp-items="ViewBag.AanvragerId"></select>
+                <span asp-validation-for="AanvragerId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartUur" class="control-label"></label>
+                <input asp-for="StartUur" class="form-control" />
+                <span asp-validation-for="StartUur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EindUur" class="control-label"></label>
+                <input asp-for="EindUur" class="form-control" />
+                <span asp-validation-for="EindUur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reden" class="control-label"></label>
+                <input asp-for="Reden" class="form-control" />
+                <span asp-validation-for="Reden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Kostprijs" class="control-label"></label>
+                <input asp-for="Kostprijs" class="form-control" />
+                <span asp-validation-for="Kostprijs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsGoedGekeurdDir" class="control-label"></label>
+                <input asp-for="IsGoedGekeurdDir" class="form-control" />
+                <span asp-validation-for="IsGoedGekeurdDir" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAfgewezen" class="control-label"></label>
+                <input asp-for="IsAfgewezen" class="form-control" />
+                <span asp-validation-for="IsAfgewezen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OpmerkingAfgewezen" class="control-label"></label>
+                <input asp-for="OpmerkingAfgewezen" class="form-control" />
+                <span asp-validation-for="OpmerkingAfgewezen" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAfgewerkt" class="control-label"></label>
+                <input asp-for="IsAfgewerkt" class="form-control" />
+                <span asp-validation-for="IsAfgewerkt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Wijzig" class="btn btn-secondary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            // When the page loads, update the selected Aanvrager's name
+            updateSelectedAanvragerName();
+
+            // Attach an event listener to the dropdown change event
+            $("#AanvragerId").change(function () {
+                updateSelectedAanvragerName();
+            });
+
+            // Function to update the selected Aanvrager's name
+            function updateSelectedAanvragerName() {
+                var selectedAanvragerId = $("#AanvragerId").val();
+                var selectedAanvragerName = $("#AanvragerId option:selected").text();
+
+                // Update the label and span with the selected Aanvrager's name
+                $("#selectedAanvragerLabel").text("Selected Aanvrager: " + selectedAanvragerName);
+                $("#selectedAanvragerName").text(selectedAanvragerName);
+            }
+        });
+    </script>
+}

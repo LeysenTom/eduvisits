@@ -1,0 +1,205 @@
+﻿@model MVCProject.ViewModels.StudiebezoekViewModels.StudiebezoekDetailsViewModel
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="display-5 mt-4">Details</h1>
+
+@if (User.IsInRole("Beheerder") || User.IsInRole("Coördinator") || User.IsInRole("Directie")){
+    <a asp-action="Index" class="btn btn-primary mb-1">Terug naar studiebezoeklijst</a>
+}
+
+<div>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Aanvrager)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Aanvrager.VolledigeNaam)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Vak)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Vak.Naam)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Datum)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Datum)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.StartUur)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.StartUur)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.EindUur)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.EindUur)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Reden)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Reden)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.AantalStudenten)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.AantalStudenten)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.KostprijsStudiebezoek)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.KostprijsStudiebezoek)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Vervoer)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Vervoer)
+        </dd>
+        
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.KostprijsVervoer)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.KostprijsVervoer)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.AfwezigeStudenten)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.AfwezigeStudenten)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Opmerkingen)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Opmerkingen)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.GoedgekeurdCo)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.GoedgekeurdCo)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.GoedgekeurdDir)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.GoedgekeurdDir)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Afgewezen)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Afgewezen)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.OpmerkingAfgewezen)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.OpmerkingAfgewezen)
+        </dd>
+        <dt class = "col-sm-4">
+            @Html.DisplayNameFor(model => model.Afgewerkt)
+        </dt>
+        <dd class = "col-sm-8">
+            @Html.DisplayFor(model => model.Afgewerkt)
+        </dd>
+       
+        
+
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Begeleiders)
+        </dt>
+        <dd class="col-sm-8">
+            @foreach (var begeleider in Model.Begeleiders)
+            {
+                <p>@begeleider.VolledigeNaam</p>
+            }
+        </dd>
+
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Klassen)
+        </dt>
+        <dd class="col-sm-8">
+            @foreach (var klas in Model.Klassen)
+            {
+                <p>@klas.Naam</p> 
+            }
+        </dd>
+
+    </dl>
+
+    @if (Model.Bijlages.Any())
+    {
+        <h3>Bijlagen</h3>
+        <ul>
+            @foreach (var bijlage in Model.Bijlages)
+            {
+                <li>
+                    <a href="@Url.Content($"~/bijlagen/{bijlage.Foldernaam}/{bijlage.EchteBestandsNaam}")" target="_blank">@bijlage.EchteBestandsNaam</a>
+                </li>
+            }
+        </ul>
+    }
+
+    
+    
+</div>
+<div>
+    @if (Model.IsGoedgekeurdCo == null && User.IsInRole("Coördinator"))
+    {
+        <form asp-action="ApproveCo" asp-route-id="@Model?.Id" method="post">
+            <button type="submit" class="btn btn-secondary mt-2">Goedkeuren</button>
+        </form>
+        <form asp-action="Refuse" asp-route-id="@Model?.Id" method="post">
+            <div class="form-group">
+                <label for="afkeurReden">Reden voor afkeuren:</label>
+                <input type="text" id="afkeurReden" name="afkeurReden" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-refuse mt-2">Afkeuren</button>
+        </form>
+    }
+    @if (Model?.IsGoedgekeurdCo == true && Model.IsGoedgekeurdDir == null && User.IsInRole("Directie"))
+    {
+        <form asp-action="ApproveDir" asp-route-id="@Model?.Id" method="post">
+            <button type="submit" class="btn btn-secondary mt-2">Goedkeuren</button>
+        </form>
+        <form asp-action="Refuse" asp-route-id="@Model?.Id" method="post">
+            <div class="form-group">
+                <label for="afkeurReden">Reden voor afkeuren:</label>
+                <input type="text" id="afkeurReden" name="afkeurReden" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-refuse mt-2">Afkeuren</button>
+        </form>
+    }
+    @if (Model?.AanvragerId == User.FindFirstValue(ClaimTypes.NameIdentifier) && Model.IsGoedgekeurdDir == true && (Model.IsAfgewerkt == null || Model.IsAfgewerkt == false))
+    {
+        <form asp-action="IsCompleted" asp-route-id="@Model?.Id" method="post">
+            <div class="form-group">
+                <label for="absentStudents">Afwezige leerlingen (optioneel):</label>
+                <input type="text" id="absentStudents" name="absentStudents" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-secondary mt-2">Markeer als Afgewerkt</button>    
+        </form>
+    }
+    @if (User.IsInRole("Beheerder") || User.IsInRole("Coördinator") || User.IsInRole("Directie"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary mt-2">Wijzigen</a>
+    }
+     
+    <a href="@ViewData["Referer"]" class="btn btn-primary mt-2">Ga terug</a>
+</div>

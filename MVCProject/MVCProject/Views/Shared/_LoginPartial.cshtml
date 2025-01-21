@@ -1,0 +1,32 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<Gebruiker> SignInManager
+@inject UserManager<Gebruiker> UserManager
+
+<ul class="navbar-nav">
+@if (SignInManager.IsSignedIn(User))
+{
+    //haalt de naam van de ingelogde gebruiker op
+    <li class=" ms-3">
+        <div class="nav-link text-light">@(UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.VolledigeNaam)</div>
+    </li>
+    //haalt de 1ste rol van de ingelogde gebruiker op
+    <li class=" ms-3">
+        <div class="nav-link text-light">@((await UserManager.GetRolesAsync(await UserManager.GetUserAsync(User))).ToList().FirstOrDefault())</div>
+    </li>
+    <li class=" ms-3">
+        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <button id="logout" type="submit" class="nav-link btn text-lg-center text-light">Logout</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    </li>
+}
+</ul>

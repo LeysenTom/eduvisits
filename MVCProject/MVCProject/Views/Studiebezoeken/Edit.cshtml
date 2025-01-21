@@ -1,0 +1,212 @@
+﻿@model MVCProject.ViewModels.StudiebezoekViewModels.StudiebezoekEditViewModel
+
+@{
+    ViewData["Title"] = "Bewerken Studiebezoek";
+}
+
+<h1>Wijzig studiebezoek</h1>
+<a asp-action="Index" class="btn btn-primary mb-1">Terug naar studiebezoeklijst</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+
+            <div class="form-group">
+                <label asp-for="AanvragerId" class="control-label"></label>
+                <select asp-for="AanvragerId" class="form-control" disabled>
+                    <option value="@Model?.Aanvrager?.Id" selected>@Model?.Aanvrager?.Naam @Model?.Aanvrager?.Voornaam</option>
+                </select>
+                <span asp-validation-for="AanvragerId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="VakId" class="control-label"></label>
+                <select asp-for="VakId" class="form-control" asp-items="@Model?.MogelijkOrganiserendeVakken"></select>
+                <span asp-validation-for="VakId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartUur" class="control-label"></label>
+                <input asp-for="StartUur" class="form-control" />
+                <span asp-validation-for="StartUur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EindUur" class="control-label"></label>
+                <input asp-for="EindUur" class="form-control" />
+                <span asp-validation-for="EindUur" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reden" class="control-label"></label>
+                <textarea asp-for="Reden" class="form-control"> </textarea>
+                <span asp-validation-for="Reden" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AantalStudenten" class="control-label"></label>
+                <input asp-for="AantalStudenten" class="form-control" />
+                <span asp-validation-for="AantalStudenten" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KostprijsStudiebezoek" class="control-label"></label>
+                <input asp-for="KostprijsStudiebezoek" class="form-control" />
+                <span asp-validation-for="KostprijsStudiebezoek" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input asp-for="VervoerBus" type="checkbox" />
+                <label asp-for="VervoerBus" class="control-label"></label>
+                <span asp-validation-for="VervoerBus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerTram" type="checkbox" />
+                <label asp-for="VervoerTram" class="control-label"></label>
+                <span asp-validation-for="VervoerTram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerTrein" type="checkbox" />
+                <label asp-for="VervoerTrein" class="control-label"></label>
+                <span asp-validation-for="VervoerTrein" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerTeVoet" type="checkbox" />
+                <label asp-for="VervoerTeVoet" class="control-label"></label>
+                <span asp-validation-for="VervoerTeVoet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerAuto" type="checkbox" />
+                <label asp-for="VervoerAuto" class="control-label"></label>
+                <span asp-validation-for="VervoerAuto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerFiets" type="checkbox" />
+                <label asp-for="VervoerFiets" class="control-label"></label> <br />
+                <span asp-validation-for="VervoerFiets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KostprijsVervoer" class="control-label"></label>
+                <input asp-for="KostprijsVervoer" class="form-control" />
+                <span asp-validation-for="KostprijsVervoer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AfwezigeStudenten" class="control-label"></label>
+                <textarea asp-for="AfwezigeStudenten" class="form-control"> </textarea>
+                <span asp-validation-for="AfwezigeStudenten" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Opmerkingen" class="control-label"></label>
+                <textarea asp-for="Opmerkingen" class="form-control"> </textarea>
+                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+            </div>
+
+            @if(User.IsInRole("Beheerder") || User.IsInRole("Coördinator")){
+                <div class="form-group">
+                    <label asp-for="IsGoedgekeurdCo" class="control-label"></label>
+                    <select asp-for="IsGoedgekeurdCo" class="form-control" asp-items="@Model?.IsGoedgekeurdCoSelectList"></select>
+                    <span asp-validation-for="IsGoedgekeurdCo" class="text-danger"></span>
+                </div>
+            }
+            
+            @if(User.IsInRole("Beheerder") || User.IsInRole("Directie")){
+            <div class="form-group">
+                <label asp-for="IsGoedgekeurdDir" class="control-label"></label>
+                <select asp-for="IsGoedgekeurdDir" class="form-control" asp-items="@Model?.IsGoedgekeurdDirSelectList"></select>
+                <span asp-validation-for="IsGoedgekeurdDir" class="text-danger"></span>
+            </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="IsAfgewezen" class="control-label"></label>
+                <select asp-for="IsAfgewezen" class="form-control" asp-items="@Model?.IsAfgewezenSelectList"></select>
+                <span asp-validation-for="IsAfgewezen" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="OpmerkingAfgewezen" class="control-label"></label>
+                <textarea asp-for="OpmerkingAfgewezen" class="form-control"> </textarea>
+                <span asp-validation-for="OpmerkingAfgewezen" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="IsAfgewerkt" class="control-label"></label>
+                <select asp-for="IsAfgewerkt" class="form-control" asp-items="@Model?.IsAfgewezenSelectList"></select>
+                <span asp-validation-for="IsAfgewerkt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GeselecteerdeBegeleiderIds" class="control-label"></label>
+                <select asp-for="GeselecteerdeBegeleiderIds" class="form-control" asp-items="@Model?.MogelijkeBegeleiders" multiple="multiple"></select>
+                <small class="form-text text-muted @(@HasValidationError(ViewData, "GeselecteerdeBegeleiderIds") ? "d-none" : "")">
+                    Gebruik Ctrl-klik om meerdere begeleiders te selecteren.
+                </small>
+                <span asp-validation-for="GeselecteerdeBegeleiderIds" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GeselecteerdeKlasIds" class="control-label"></label>
+                <select asp-for="GeselecteerdeKlasIds" class="form-control" asp-items="@Model?.MogelijkeDeelnemendeKlassen" multiple="multiple"></select>
+                <small class="form-text text-muted @(@HasValidationError(ViewData, "GeselecteerdeKlasIds") ? "d-none" : "")">
+                    Gebruik Ctrl-klik om meerdere begeleiders te selecteren.
+                </small>
+                <span asp-validation-for="GeselecteerdeKlasIds" class="text-danger"></span>
+            </div>
+
+
+            <h4 class="mt-2">Bijlagen</h4>
+
+            @if (Model?.Bijlages != null && Model?.Bijlages.Count() > 0)
+            {
+                <ul class="list-unstyled">
+                    @foreach (var bijlage in Model.Bijlages)
+                    {
+                        <li>
+                            <input type="checkbox" name="FilesToDelete" value="@bijlage.Id" />
+                            <a href="@Url.Content($"~/bijlagen/{bijlage.Foldernaam}/{bijlage.EchteBestandsNaam}")" target="_blank">@bijlage.EchteBestandsNaam</a>
+                        </li>
+                    }
+                </ul>
+                <div>
+                    <small class="form-text text-muted">
+                        Selecteer checkbox om bijlage te verwijderen.
+                    </small>
+                </div>
+            }
+            <div class="form-group mb-2">
+                <label asp-for="ExtraBijlages">Voeg Bijlages Toe:</label>
+                <input type="file" asp-for="ExtraBijlages" multiple />
+
+            </div>
+
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Wijzig" class="btn btn-secondary mt-2" />
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@functions {
+    public bool HasValidationError(ViewDataDictionary viewData, string key)
+    {
+
+        return viewData.ModelState.TryGetValue(key, out var state) && state.Errors.Count > 0;
+    }
+}
+

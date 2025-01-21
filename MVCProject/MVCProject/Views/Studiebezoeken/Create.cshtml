@@ -1,0 +1,154 @@
+﻿@model MVCProject.ViewModels.StudiebezoekViewModels.StudiebezoekCreateViewModel
+
+@{
+    ViewData["Title"] = "Aanvragen Studiebezoek";
+}
+
+<h1 class="display-5 mt-4">Nieuw studiebezoek</h1>
+
+<a asp-action="Index" class="btn btn-primary mb-1">Terug naar studiebezoeklijst</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="VakId" class="control-label"></label>
+                <select asp-for="VakId" class="form-control" asp-items="@Model.MogelijkOrganiserendeVakken">
+                    <option value=0>Selecteer een Vak</option>
+                </select>
+                <span asp-validation-for="VakId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="StartUur" class="control-label"></label>
+                <input asp-for="StartUur" type="time" class="form-control" />
+                <span asp-validation-for="StartUur" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EindUur" class="control-label"></label>
+                <input asp-for="EindUur" type="time" class="form-control" />
+                <span asp-validation-for="EindUur" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Reden" class="control-label"></label>
+                <textarea asp-for="Reden" class="form-control"> </textarea>
+                <span asp-validation-for="Reden" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AantalStudenten" class="control-label"></label>
+                <input asp-for="AantalStudenten" class="form-control" />
+                <span asp-validation-for="AantalStudenten" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KostprijsStudiebezoek" class="control-label"></label>
+                <input asp-for="KostprijsStudiebezoek" class="form-control" />
+                <span asp-validation-for="KostprijsStudiebezoek" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerBus" type="checkbox" />
+                <label asp-for="VervoerBus" class="control-label"></label>
+                <span asp-validation-for="VervoerBus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerTram" type="checkbox" />
+                <label asp-for="VervoerTram" class="control-label"></label>
+                <span asp-validation-for="VervoerTram" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerTrein" type="checkbox" />
+                <label asp-for="VervoerTrein" class="control-label"></label>
+                <span asp-validation-for="VervoerTrein" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerTeVoet" type="checkbox" />
+                <label asp-for="VervoerTeVoet" class="control-label"></label>
+                <span asp-validation-for="VervoerTeVoet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerAuto" type="checkbox" />
+                <label asp-for="VervoerAuto" class="control-label"></label>
+                <span asp-validation-for="VervoerAuto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="VervoerFiets" type="checkbox" />
+                <label asp-for="VervoerFiets" class="control-label"></label> <br />
+                <span asp-validation-for="VervoerFiets" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KostprijsVervoer" class="control-label"></label>
+                <input asp-for="KostprijsVervoer" class="form-control" />
+                <span asp-validation-for="KostprijsVervoer" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Opmerkingen" class="control-label"></label>
+                <input asp-for="Opmerkingen" class="form-control" />
+                <span asp-validation-for="Opmerkingen" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="GeselecteerdeBegeleiderIds" class="control-label">Begeleiders</label>
+                <select asp-for="GeselecteerdeBegeleiderIds" class="form-control" multiple="multipple">
+                    @foreach (var begeleider in Model.MogelijkeBegeleiders)
+                    {
+                        <option value="@begeleider.Id">@begeleider.Voornaam @begeleider.Naam</option>
+                    }
+                </select>
+                <small class="form-text text-muted @(@HasValidationError(ViewData, "GeselecteerdeBegeleiderIds") ? "d-none" : "")">
+                    Gebruik Ctrl-klik om meerdere begeleiders te selecteren.
+                </small>
+                <span asp-validation-for="GeselecteerdeBegeleiderIds" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="GeselecteerdeKlasIds">Klassen</label>
+                <select asp-for="GeselecteerdeKlasIds" asp-items="@Model.MogelijkeDeelnemendeKlassen"
+                        class="form-control" multiple="multiple"></select>
+                <small class="form-text text-muted @(@HasValidationError(ViewData, "GeselecteerdeKlasIds") ? "d-none" : "")">Gebruik Ctrl-klik om meerdere klassen te selecteren.</small>
+
+                <span asp-validation-for="GeselecteerdeKlasIds" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group mb-2">
+                <label asp-for="Bijlages">Upload Bijlage</label>
+                <input type="file" asp-for="Bijlages" multiple />
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Aanmaken" class="btn btn-secondary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+@functions {
+    public bool HasValidationError(ViewDataDictionary viewData, string key)
+    {
+        return viewData.ModelState.TryGetValue(key, out var state) && state.Errors.Count > 0;
+    }
+}
+
+

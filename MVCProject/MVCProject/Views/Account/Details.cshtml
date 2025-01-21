@@ -1,0 +1,37 @@
+﻿@using MVCProject.Viewmodels.AccountViewModels;
+
+@model AccountDetailsViewModel;
+@{
+    ViewData["Title"] = @Model.Voornaam + " " + @Model.Naam;
+}
+
+<h1 class="display-5 mt-4">@ViewData["Title"]</h1>
+
+<a asp-action="Index" class="btn btn-primary mb-1">Terug naar accountlijst</a>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Id)</td>
+        <td>@this.Model.Id</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Voornaam)</td>
+        <td>@this.Model.Voornaam</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Naam)</td>
+        <td>@this.Model.Naam</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Gebruikersnaam)</td>
+        <td>@Model.Gebruikersnaam</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Email)</td>
+        <td>@Model.Email</td>
+    </tr>
+    <tr>
+        <td>@Html.DisplayNameFor(model => this.Model.Rollen)</td>
+        <td>@(Model.Rollen == "" ? "Er zijn geen rollen" : Model.Rollen)  </td>
+    </tr>
+</table>

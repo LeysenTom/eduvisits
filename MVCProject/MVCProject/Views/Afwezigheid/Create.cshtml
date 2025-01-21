@@ -1,0 +1,48 @@
+﻿@model MVCProject.ViewModels.AfwezigheidEditViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="display-5 mt-4">Nieuwe afwezigheid</h1>
+
+<a asp-action="Index" class="btn btn-primary mb-1">Terug naar afwezigheidslijst</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="GebruikerNaam" />
+            <input type="hidden" asp-for="Gebruikers" />
+            <input type="hidden" asp-for="GebruikersId" />
+            <div class="form-group">
+                <label asp-for="GebruikerId" class="control-label"></label>
+                <select class="form-control" asp-for="GebruikerId">
+                    @for (var i = 0; i < Model.Gebruikers.Count(); i++)
+                    {
+                        <option value="@Model.GebruikersId[i]">@Model.Gebruikers[i]</option>
+                    }
+                </select>
+                <span asp-validation-for="GebruikerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDatum" class="control-label"></label>
+                <input asp-for="StartDatum" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                <span asp-validation-for="StartDatum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EindDatum" class="control-label"></label>
+                <input asp-for="EindDatum" min="@DateTime.Now.ToString("yyyy-MM-ddThh:mm")"  class="form-control" />
+                <span asp-validation-for="EindDatum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Aanmaken" class="btn btn-secondary mt-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

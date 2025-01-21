@@ -1,0 +1,30 @@
+﻿@model MVCProject.ViewModels.KlasViewModels.KlasViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Klas</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Naam)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Naam)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Verwijderd)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Verwijderd)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Wijzigen</a> |
+    <a asp-action="Index">Terug naar hoofdmenu</a>
+</div>

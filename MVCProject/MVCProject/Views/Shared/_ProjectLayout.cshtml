@@ -1,0 +1,178 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<Gebruiker> SignInManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MVCProject</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MVCProject.styles.css" asp-append-version="true" />
+	<link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+	<link rel="icon" type="image/png" href="~/icons8-student-center-32.png" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+</head>
+<body>
+    <div class="row me-0">
+		<div class ="navbar">
+			<nav>
+				
+				<ul class="nav navbar-nav">
+
+				@if (SignInManager.IsSignedIn(User))
+				{
+					@*Image by <a href="https://pixabay.com/users/katillustrationlondon-10871763/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5227091">Katherine Ab</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5227091">Pixabay</a> *@
+					<li class="ms-1 h3"><img src="~/school-bus-5227091_1280.png" alt="schoolbus" class="me-1" />EduVisits</li>
+					<li class="nav-item">
+						<button class="navmenu"><a asp-area="" asp-controller="Home" asp-action="Dashboard" class="dashboard"> Dashboard </a> </button>
+					</li>
+
+					<li class="nav-item">
+						<button class="navmenu" onclick="toggleItems('aanvragen')"> Aanvragen </button>
+					</li>
+
+						<li class="aanvragen"  hidden>
+							<a asp-area="" asp-controller="Studiebezoeken" asp-action="Create" class="navbalk"> Studiebezoek </a>
+						</li>
+						<li class="aanvragen" hidden>
+							<a asp-area="" asp-controller="Navormingen" asp-action="Create" class="navbalk"> Navorming </a>
+						</li>
+
+					<li class="nav-item">
+						<button class="navmenu" onclick="toggleItems('aanmaken')"> Aanmaken </button>
+					</li>
+
+						<li class="aanmaken" hidden>
+							<a  class="navbalk"> Fotoalbum </a>
+						</li>
+						@if (User.IsInRole("Beheerder") || User.IsInRole("Secretariaat"))
+						{
+						<li class="aanmaken" hidden>
+							<a asp-area="" asp-controller="Afwezigheid" asp-action="Create" class="navbalk"> Afwezigheid </a>
+						</li>
+						}
+					<li class="nav-item">
+						<button class="navmenu" onclick="toggleItems('bekijken')"> Bekijken </button>
+					</li>
+
+						<li class="bekijken" hidden>
+							<a asp-area="" asp-controller="Studiebezoeken" asp-action="PersoonlijkArchief" class="navbalk"> Mijn studiebezoeken </a>
+						</li>
+						<li class="bekijken" hidden>
+							<a asp-area="" asp-controller="Navormingen" asp-action="PersoonlijkArchief" class="navbalk"> Mijn navormingen </a>
+						</li>
+						@if (User.IsInRole("Secretariaat") || User.IsInRole("Coördinator"))
+						{
+						<li class="bekijken" hidden>
+							<a asp-area="" asp-controller="Studiebezoeken" asp-action="Archief" class="navbalk"> Archief studiebezoeken </a>
+						</li>
+						}
+
+					@if (User.IsInRole("Beheerder") || User.IsInRole("Secretariaat") || User.IsInRole("Coördinator"))
+					{
+					<li class="nav-item">
+							<button class="navmenu" onclick="toggleItems('beheren')"> Beheren </button>
+					</li>
+
+						@if (User.IsInRole("Beheerder"))
+						{
+						<li class="beheren" hidden>
+							<a asp-area="" asp-controller="Account" asp-action="Index" class="navbalk"> Gebruikers </a>
+						</li>
+						<li class="beheren" hidden>
+							<a asp-area="" asp-controller="Studiebezoeken" asp-action="Index" class="navbalk"> Studiebezoeken </a>
+						</li>
+						<li class="beheren" hidden>
+							<a asp-area="" asp-controller="Navormingen" asp-action="Index" class="navbalk"> Navormingen </a>
+						</li>
+						<li class="beheren" hidden>
+							<a class="navbalk"> Fotoalbums </a>
+						</li>
+						}
+						@if (User.IsInRole("Beheerder") || User.IsInRole("Secretariaat"))
+						{
+						<li class="beheren" hidden>
+							<a asp-area="" asp-controller="Afwezigheid" asp-action="Index" class="navbalk"> Afwezigheden </a>
+						</li>
+						}
+						@if (User.IsInRole("Beheerder") || User.IsInRole("Coördinator"))
+						{
+						<li class="beheren" hidden>
+							<a asp-area="" asp-controller="Klas" asp-action="Index" class="navbalk"> Klassen </a>
+						</li>
+						<li class="beheren" hidden>
+							<a asp-area="" asp-controller="Vakken" asp-action="Index" class="navbalk"> Vakken </a>
+						</li>
+						}
+
+					}
+
+					@if (User.IsInRole("Directie") || User.IsInRole("Coördinator"))
+					{
+					<li class="nav-item">
+						<button class="navmenu navbalk" onclick="toggleItems('wijzigen')"> Wijzigen </button>
+					</li>
+						<li class="wijzigen" hidden>
+							<a asp-area="" asp-controller="Studiebezoeken" asp-action="Index" class="navbalk"> Studiebezoeken </a>
+						</li>
+						<li class="wijzigen" hidden>
+							<a asp-area="" asp-controller="Navormingen" asp-action="Index" class="navbalk"> Navormingen </a>
+						</li>
+					}
+					
+					<li class="bottom-item">
+						<partial name="_LoginPartial" />
+					</li>
+				}
+				</ul>
+			</nav>
+		</div>
+
+		<div class="main">
+			<main role="main">
+				@RenderBody()
+			</main>
+		</div>
+	</div>
+
+	<script>
+		function toggleItems(category) {
+			var items = document.querySelectorAll('.' + category);
+
+			// Toggle the "hidden" attribute for each item in the category
+			items.forEach(function (item) {
+				item.hidden = !item.hidden;
+			});
+		}
+	</script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			// Extend jQuery validator method for number to accept both comma and dot as decimal separator
+			$.validator.methods.number = function (value, element) {
+				return this.optional(element) || /^-?\d+(?:[\.,]\d+)?$/.test(value);
+			};
+
+			// When the form is submitted
+			$('form').submit(function () {
+				// Find each input that is supposed to have decimal values
+				$('input[type="number"]').each(function () {
+					// Replace commas with dots
+					var value = $(this).val().replace(',', '.');
+					$(this).val(value);
+				});
+			});
+		});
+
+	</script>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

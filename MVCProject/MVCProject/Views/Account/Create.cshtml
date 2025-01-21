@@ -1,0 +1,77 @@
+﻿@using MVCProject.Viewmodels.AccountViewModels
+
+@model AccountCreateViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="display-5 mt-4">Nieuwe gebruiker</h1>
+
+<a asp-controller="Account" asp-action="Index" class="btn btn-primary mb-1">Terug naar accountlijst</a>
+<hr/>
+<div>
+    <div>
+        <form id="registerForm" method="post">
+                
+            <div class="row">
+                <div class="col-8">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" class="form-control" aria-required="true" />
+                        <label asp-for="Email"></label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Voornaam" class="form-control" aria-required="true" />
+                        <label asp-for="Voornaam"></label>
+                        <span asp-validation-for="Voornaam" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Achternaam" class="form-control" aria-required="true" />
+                        <label asp-for="Achternaam"></label>
+                        <span asp-validation-for="Achternaam" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Gebruikersnaam" class="form-control" aria-required="true" />
+                        <label asp-for="Gebruikersnaam"></label>
+                        <span asp-validation-for="Gebruikersnaam" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <label asp-for="Password"></label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                        <label asp-for="ConfirmPassword"></label>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <h4>Rollen</h4>
+                    <div class="form-check">
+                        <input asp-for="Leerkracht" type="checkbox" class="form-check-input" />
+                        <label asp-for="Leerkracht" class="form-check-label">Leerkracht</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="SecretariaatsMedewerker" type="checkbox" class="form-check-input" />
+                        <label asp-for="SecretariaatsMedewerker" class="form-check-label">Secretariaatsmedewerker</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Coordinator" type="checkbox" class="form-check-input" />
+                        <label asp-for="Coordinator" class="form-check-label">Coordinator</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Directie" type="checkbox" class="form-check-input" />
+                        <label asp-for="Directie" class="form-check-label">Directie</label>
+                    </div>
+                </div>
+            </div>
+            <button id="registerSubmit" type="submit" class="btn btn-lg btn-secondary">Registreer</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

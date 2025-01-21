@@ -1,0 +1,37 @@
+﻿@model MVCProject.ViewModels.AfwezigheidViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 class="display-5 mt-4">Verwijderen afwezigheid</h1>
+<h3>Ben je zeker dat je wilt verwijderen?</h3>
+<a asp-action="Index" class="btn btn-primary mb-1">Terug naar hoofdmenu</a>
+<hr/>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StartDatum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StartDatum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EindDatum)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EindDatum)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gebruiker)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gebruiker.Voornaam) @Html.DisplayFor(model => model.Gebruiker.Naam)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Verwijderen" class="btn btn-refuse" />
+    </form>
+</div>
