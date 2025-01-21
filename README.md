@@ -1,4 +1,4 @@
-De link naar de githubpagina is: https://github.com/it-graduaten/mvc-project-tti-gpr-d2-1-tti-gpr-d2-1-1
+De link naar de githubpagina is: https://github.com/LeysenTom/eduvisits.git
 
 Het wachtwoord van iedereen is 'AdminAdmin_1'.
 
